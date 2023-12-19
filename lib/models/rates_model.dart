@@ -4,34 +4,40 @@
 
 import 'dart:convert';
 
-RatesModel ratesModelFromJson(String str) => RatesModel.fromJson(json.decode(str));
+RatesModel ratesModelFromJson(String str) =>
+    RatesModel.fromJson(json.decode(str));
 
 String ratesModelToJson(RatesModel data) => json.encode(data.toJson());
 
 class RatesModel {
-  bool error;
-  int status;
-  String message;
-  String description;
-
   RatesModel({
-    required this.error,
-    required this.status,
-    required this.message,
-    required this.description,
+    required this.disclaimer,
+    required this.license,
+    required this.timestamp,
+    required this.base,
+    required this.rates,
   });
 
+  String disclaimer;
+  String license;
+  int timestamp;
+  String base;
+  Map<String, double> rates;
+
   factory RatesModel.fromJson(Map<String, dynamic> json) => RatesModel(
-    error: json["error"],
-    status: json["status"],
-    message: json["message"],
-    description: json["description"],
+    disclaimer: json["disclaimer"],
+    license: json["license"],
+    timestamp: json["timestamp"],
+    base: json["base"],
+    rates: Map.from(json["rates"])
+        .map((k, v) => MapEntry<String, double>(k, v.toDouble())),
   );
 
   Map<String, dynamic> toJson() => {
-    "error": error,
-    "status": status,
-    "message": message,
-    "description": description,
+    "disclaimer": disclaimer,
+    "license": license,
+    "timestamp": timestamp,
+    "base": base,
+    "rates": Map.from(rates).map((k, v) => MapEntry<String, dynamic>(k, v)),
   };
 }

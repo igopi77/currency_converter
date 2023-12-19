@@ -13,7 +13,7 @@ class UsdToAny extends StatefulWidget {
 
 class _UsdToAnyState extends State<UsdToAny> {
   TextEditingController usdController = TextEditingController();
-  String dropDownValue ='AUD';
+  String dropDownValue ='INR';
   String answer = "converted value will be shown here :)";
 
   @override
@@ -76,7 +76,7 @@ class _UsdToAnyState extends State<UsdToAny> {
                   child: ElevatedButton(
                     onPressed: (){
                       setState(() {
-                        answer = dropDownValue + 'USD = ' + convertUsd(
+                        answer = dropDownValue + ' USD = ' + convertUsd(
                             widget.rates,usdController.text,dropDownValue
                         ) + ' ' + dropDownValue;
 

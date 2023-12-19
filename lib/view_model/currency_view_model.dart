@@ -5,7 +5,7 @@ import 'package:currency_converter/models/currency_model.dart';
 import 'package:http/http.dart' as http;
 
 Future<Map> FetchCurrencies() async{
-    var response = await http.get(('https://openexchangerates.org/api/currencies.json' + key) as Uri);
+    var response = await http.get(Uri.parse('https://openexchangerates.org/api/currencies.json?prettyprint=false&show_alternative=false&show_inactive=false&app_id=' + key));
     final allCurrencies = currencyModelFromJson(response.body);
     return allCurrencies;
 }

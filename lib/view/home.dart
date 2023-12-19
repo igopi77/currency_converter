@@ -1,4 +1,5 @@
 import 'package:currency_converter/models/rates_model.dart';
+import 'package:currency_converter/view_model/components/usdToAny.dart';
 import 'package:currency_converter/view_model/currency_view_model.dart';
 import 'package:currency_converter/view_model/rates_view_model.dart';
 import 'package:flutter/material.dart';
@@ -25,9 +26,60 @@ class _HomePageState extends State<HomePage> {
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
-      child: Text("Gopinath"),
+    var h =MediaQuery.of(context).size.height;
+    var w =MediaQuery.of(context).size.width;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Currency Converter application"),),
+      body: Container(
+        height: h,
+        width: w,
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('lib/res/image/imageForCurrencyConverter.jpeg'),
+            fit: BoxFit.cover
+          )
+        ),
+
+        child: SingleChildScrollView(
+          child: Form(
+            key: formKey,
+            child: FutureBuilder<RatesModel>(
+              future: result,
+              builder: (context,snapshot){
+                if(snapshot.connectionState == ConnectionState.waiting){
+                  return Center(child: CircularProgressIndicator());
+                }
+                return Center(
+                 child: FutureBuilder<Map>(
+                   future: allCurrencies,
+                   builder: (context,currSnapshot){
+                     if(currSnapshot.connectionState == ConnectionState.waiting){
+                       return Center(child: CircularProgressIndicator());
+                     }
+                     return Column(
+                       mainAxisAlignment: MainAxisAlignment.center,
+                       children: [
+                         if (currSnapshot.hasData && snapshot.hasData)
+                         UsdToAny(
+                           currencies: currSnapshot.data!,
+                           rates: snapshot.data!.rates,
+                         )
+                        else if (currSnapshot.hasError)
+                            Text('Error loading currencies: ${currSnapshot.error}')
+                        else
+                            CircularProgressIndicator(),
+                       ],
+                     );
+                   }
+                 )
+                );
+              }
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
