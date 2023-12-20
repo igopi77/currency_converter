@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:currency_converter/view_model/components/conversion.dart';
+import 'package:currency_converter/utils/conversion.dart';
 
 class anyToAny extends StatefulWidget {
   final rates;

@@ -1,8 +1,8 @@
 import 'package:currency_converter/models/rates_model.dart';
 import 'package:currency_converter/view_model/components/anyToAny.dart';
 import 'package:currency_converter/view_model/components/usdToAny.dart';
-import 'package:currency_converter/view_model/currency_view_model.dart';
-import 'package:currency_converter/view_model/rates_view_model.dart';
+import 'package:currency_converter/repository/currency_view_model.dart';
+import 'package:currency_converter/repository/rates_view_model.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,8 +21,8 @@ class _HomePageState extends State<HomePage> {
   void initState(){
     super.initState();
     setState(() {
-      result = FetchRates();
-      allCurrencies =FetchCurrencies();
+      result = fetchRates();
+      allCurrencies =fetchCurrencies();
     });
   }
   @override
