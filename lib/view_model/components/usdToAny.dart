@@ -1,6 +1,6 @@
+
 import 'package:flutter/material.dart';
-import 'package:currency_converter/view_model/currency_view_model.dart';
-import 'package:currency_converter/view_model/rates_view_model.dart';
+import 'package:currency_converter/view_model/components/conversion.dart';
 
 class UsdToAny extends StatefulWidget {
   final rates;

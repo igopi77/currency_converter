@@ -1,4 +1,5 @@
 import 'package:currency_converter/models/rates_model.dart';
+import 'package:currency_converter/view_model/components/anyToAny.dart';
 import 'package:currency_converter/view_model/components/usdToAny.dart';
 import 'package:currency_converter/view_model/currency_view_model.dart';
 import 'package:currency_converter/view_model/rates_view_model.dart';
@@ -30,7 +31,9 @@ class _HomePageState extends State<HomePage> {
     var w =MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Currency Converter application"),),
+        title: Text("Currency Converter application"),
+        backgroundColor: Colors.pink,
+      ),
       body: Container(
         height: h,
         width: w,
@@ -61,15 +64,14 @@ class _HomePageState extends State<HomePage> {
                      return Column(
                        mainAxisAlignment: MainAxisAlignment.center,
                        children: [
-                         if (currSnapshot.hasData && snapshot.hasData)
                          UsdToAny(
                            currencies: currSnapshot.data!,
                            rates: snapshot.data!.rates,
-                         )
-                        else if (currSnapshot.hasError)
-                            Text('Error loading currencies: ${currSnapshot.error}')
-                        else
-                            CircularProgressIndicator(),
+                         ),
+                         anyToAny(
+                             currencies: currSnapshot.data!,
+                             rates: snapshot.data!.rates,
+                         ),
                        ],
                      );
                    }
